@@ -23,6 +23,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - uses: DeterminateSystems/nix-installer-action@main
+
       - name: Install dependencies
         run: sudo apt-get install -y petname git
 
