@@ -32,6 +32,9 @@ jobs:
         run: |
           sudo snap install multipass
           sudo snap restart multipass.multipassd
+          sudo pgrep -lfa multipassd
+          sudo snap logs -n=100 multipass.multipassd
+
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
