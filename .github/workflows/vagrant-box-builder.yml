@@ -38,13 +38,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
+        run: sudo git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
 
       # Run Bartender
       - name: Run a multi-line script
         run: |
-          cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
-          ./ubuntu-bartender \
+          sudo cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
+          sudo ./ubuntu-bartender \
           --livecd-rootfs-branch ubuntu/jammy \
           --build-provider multipass \
           -- \
