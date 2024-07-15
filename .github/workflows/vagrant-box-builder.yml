@@ -21,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: DeterminateSystems/nix-installer-action@main
 
@@ -47,11 +47,6 @@ jobs:
       # Run Bartender
       - name: Run a multi-line script
         run: |
-          sudo cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
-          sudo ./ubuntu-bartender \
-          --livecd-rootfs-branch ubuntu/jammy \
-          --build-provider multipass \
-          -- \
-          --series jammy \
-          --image-target vagrant \
-          --project ubuntu-cpc
+          git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
+          cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
+          sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
