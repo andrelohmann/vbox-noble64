@@ -34,11 +34,11 @@ jobs:
       - name: Install dependencies
         run: sudo snap restart multipass.multipassd
 
-      - name: Install dependencies
-        run: sudo pgrep -lfa multipassd
+      #- name: Install dependencies
+      #  run: sudo pgrep -lfa multipassd
       
-      - name: Install dependencies
-        run: sudo snap logs -n=100 multipass.multipassd
+      #- name: Install dependencies
+      #  run: sudo snap logs -n=100 multipass.multipassd
 
       - name: experimental.parallel-instances=true
         run: sudo snap set system experimental.parallel-instances=true
@@ -49,20 +49,19 @@ jobs:
       - name: sudo chmod a+w /var/snap/multipass/common/multipass_socket
         run: sudo chmod a+w /var/snap/multipass/common/multipass_socket
 
-      - name: multipass find
-        run: multipass find
+      #- name: multipass find
+      #  run: multipass find
 
       #- name: multipass launch ubuntu
       #  run: multipass launch ubuntu
 
-      - name: multipass list
-        run: multipass list
+      #- name: multipass list
+      #  run: multipass list
 
       # Run Bartender
       - name: Run a multi-line script
         run: |
           git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
-          cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
       
       - name: multipass list
-        run: ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
+        run: cd ubuntu-old-fashioned/scripts/ubuntu-bartender/ && sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
