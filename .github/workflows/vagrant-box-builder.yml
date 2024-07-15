@@ -37,16 +37,16 @@ jobs:
       - name: Install dependencies
         run: sudo pgrep -lfa multipassd
       
-        - name: Install dependencies
+      - name: Install dependencies
         run: sudo snap logs -n=100 multipass.multipassd
 
-        - name: multipass find
+      - name: multipass find
         run: multipass find
 
-        - name: multipass launch ubuntu
+      - name: multipass launch ubuntu
         run: multipass launch ubuntu
 
-        - name: multipass list
+      - name: multipass list
         run: multipass list
 
       # Run Bartender
