@@ -30,9 +30,6 @@ jobs:
         run: sudo apt-get install -y petname git
 
       - name: Install snaps
-        run: sudo snap install multipass
-      
-      - name: Install snaps
         run: |
           sudo snap set system experimental.parallel-instances=true
           sudo snap install multipass
