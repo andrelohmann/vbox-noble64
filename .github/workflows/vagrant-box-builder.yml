@@ -46,6 +46,9 @@ jobs:
       - name:  multipass_socket
         run: sudo snap install multipass_socket
 
+      - name: sudo chmod a+w /var/snap/multipass/common/multipass_socket
+        run: sudo chmod a+w /var/snap/multipass/common/multipass_socket
+
       - name: multipass find
         run: multipass find
 
