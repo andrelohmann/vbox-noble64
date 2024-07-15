@@ -40,10 +40,6 @@ jobs:
       - name: Install dependencies
         run: sudo snap logs -n=100 multipass.multipassd
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: sudo git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
-
       # Run Bartender
       - name: Run a multi-line script
         run: |
