@@ -23,45 +23,26 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Activates Virtualization
       - uses: DeterminateSystems/nix-installer-action@main
 
       - name: Install dependencies
         run: sudo apt-get install -y petname git
 
-      - name: Install dependencies
+      - name: Install snaps
         run: sudo snap install multipass
       
-      - name: Install dependencies
-        run: sudo snap restart multipass.multipassd
-
-      #- name: Install dependencies
-      #  run: sudo pgrep -lfa multipassd
-      
-      #- name: Install dependencies
-      #  run: sudo snap logs -n=100 multipass.multipassd
-
-      - name: experimental.parallel-instances=true
-        run: sudo snap set system experimental.parallel-instances=true
-
-      - name:  multipass_socket
-        run: sudo snap install multipass_socket
-
-      - name: sudo chmod a+w /var/snap/multipass/common/multipass_socket
-        run: sudo chmod a+w /var/snap/multipass/common/multipass_socket
-
-      #- name: multipass find
-      #  run: multipass find
-
-      #- name: multipass launch ubuntu
-      #  run: multipass launch ubuntu
-
-      #- name: multipass list
-      #  run: multipass list
+      - name: Install snaps
+        run: |
+          sudo snap set system experimental.parallel-instances=true
+          sudo snap install multipass
+          sudo snap restart multipass.multipassd
+          sudo snap install multipass_socket
+          sudo chmod a+w /var/snap/multipass/common/multipass_socket
 
       # Run Bartender
       - name: Run a multi-line script
         run: |
           git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
-      
-      - name: multipass list
-        run: cd ubuntu-old-fashioned/scripts/ubuntu-bartender/ && sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
+          cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
+          sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/noble --build-provider multipass -- --series noble --image-target vagrant --project ubuntu-cpc
