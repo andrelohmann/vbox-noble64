@@ -40,6 +40,12 @@ jobs:
       - name: Install dependencies
         run: sudo snap logs -n=100 multipass.multipassd
 
+      - name: experimental.parallel-instances=true
+        run: sudo snap set system experimental.parallel-instances=true
+
+      - name:  multipass_socket
+        run: sudo snap install multipass_socket
+
       - name: multipass find
         run: multipass find
 
