@@ -29,12 +29,16 @@ jobs:
         run: sudo apt-get install -y petname git
 
       - name: Install dependencies
-        run: |
-          sudo snap install multipass
-          sudo snap restart multipass.multipassd
-          sudo pgrep -lfa multipassd
-          sudo snap logs -n=100 multipass.multipassd
+        run: sudo snap install multipass
+      
+      - name: Install dependencies
+        run: sudo snap restart multipass.multipassd
 
+      - name: Install dependencies
+        run: sudo pgrep -lfa multipassd
+      
+      - name: Install dependencies
+        run: sudo snap logs -n=100 multipass.multipassd
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
