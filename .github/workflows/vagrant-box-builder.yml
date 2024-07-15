@@ -52,8 +52,8 @@ jobs:
       - name: multipass find
         run: multipass find
 
-      - name: multipass launch ubuntu
-        run: multipass launch ubuntu
+      #- name: multipass launch ubuntu
+      #  run: multipass launch ubuntu
 
       - name: multipass list
         run: multipass list
