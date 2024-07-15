@@ -65,4 +65,4 @@ jobs:
           cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
       
       - name: multipass list
-        run: sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
+        run: ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
