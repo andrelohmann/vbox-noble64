@@ -37,15 +37,23 @@ jobs:
       - name: Install dependencies
         run: sudo pgrep -lfa multipassd
       
-      - name: Install dependencies
+        - name: Install dependencies
         run: sudo snap logs -n=100 multipass.multipassd
+
+        - name: multipass find
+        run: multipass find
+
+        - name: multipass launch ubuntu
+        run: multipass launch ubuntu
+
+        - name: multipass list
+        run: multipass list
 
       # Run Bartender
       - name: Run a multi-line script
         run: |
-          multipass find
-          multipass launch ubuntu
-          multipass list
           git clone https://github.com/ubuntu-bartenders/ubuntu-old-fashioned.git
           cd ubuntu-old-fashioned/scripts/ubuntu-bartender/
-          sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
+      
+      - name: multipass list
+        run: sudo ./ubuntu-bartender --livecd-rootfs-branch ubuntu/jammy --build-provider multipass -- --series jammy --image-target vagrant --project ubuntu-cpc
