@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-latest
+    runs-on: macos-13 # as 13 is the latest intel arch
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -32,6 +32,11 @@ jobs:
           brew install --cask vagrant
           VBoxManage --version
           vagrant --version
+
+      - name: Download and extract ubuntu server cloudimage
+        run: |
+          curl -LO https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.ova
+
 
       # Run Bartender
       #- name: Run a multi-line script
