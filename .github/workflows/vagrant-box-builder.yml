@@ -36,7 +36,11 @@ jobs:
       - name: Download and extract ubuntu server cloudimage
         run: |
           curl -LO https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.ova
-
+          tar --extract -f jammy-server-cloudimg-amd64.ova ubuntu-jammy-22.04-cloudimg.ovf
+          tar --delete -f jammy-server-cloudimg-amd64.ova ubuntu-jammy-22.04-cloudimg.ovf
+          mv ubuntu-jammy-22.04-cloudimg.ovf box.ovf
+          tar --append -f jammy-server-cloudimg-amd64.ova box.ovf
+          rm box.ovf
 
       # Run Bartender
       #- name: Run a multi-line script
