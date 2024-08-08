@@ -35,12 +35,19 @@ jobs:
 
       - name: Download and extract ubuntu server cloudimage
         run: |
+          ls -al
+          mkdir tmp_ova
           curl -LO https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.ova
-          tar --extract -f jammy-server-cloudimg-amd64.ova ubuntu-jammy-22.04-cloudimg.ovf
-          tar --delete -f jammy-server-cloudimg-amd64.ova ubuntu-jammy-22.04-cloudimg.ovf
-          mv ubuntu-jammy-22.04-cloudimg.ovf box.ovf
-          tar --append -f jammy-server-cloudimg-amd64.ova box.ovf
-          rm box.ovf
+          tar xzf jammy-server-cloudimg-amd64.ova -C tmp_ova
+          mv tmp_ova/ubuntu-jammy-22.04-cloudimg.ovf tmp_ova/box.ovf
+          mv metadata.json tmp_ova/metadata.json
+          tar czf jammy-server-cloudimg-amd64.ova -C tmp_ova .
+          rm -rf tmp_ova
+
+      - name: Add the box to vagrant
+        run: |
+          vagrant box add --vagrant box add --name jammy64 ./jammy-server-cloudimg-amd64.ova
+          vagrant box list
 
       # Run Bartender
       #- name: Run a multi-line script
