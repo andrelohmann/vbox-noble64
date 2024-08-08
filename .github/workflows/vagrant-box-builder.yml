@@ -46,7 +46,7 @@ jobs:
 
       - name: Add the box to vagrant
         run: |
-          vagrant box add --vagrant box add --name jammy64 ./jammy-server-cloudimg-amd64.ova
+          vagrant box add --name jammy64 ./jammy-server-cloudimg-amd64.ova
           vagrant box list
           vagrant plugin install vagrant-vbguest
 
