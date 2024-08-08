@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-12 # as 13 is the latest intel arch
+    runs-on: macos-13 # as 13 is the latest intel arch
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,15 +26,10 @@ jobs:
       - name: Upgrade Homebrew
         run: brew update && brew upgrade
 
-      #- name: Install Virtualbox and vagrant
-      #  run: |
-      #    brew install --cask virtualbox
-      #    brew install --cask vagrant
-      #    VBoxManage --version
-      #    vagrant --version
-
       - name: Install Virtualbox and vagrant
         run: |
+          brew install --cask virtualbox
+          brew install --cask vagrant
           VBoxManage --version
           vagrant --version
 
