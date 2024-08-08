@@ -19,5 +19,5 @@ Vagrant.configure('2') do |config|
   #config.vm.provision :shell, path:   'Config/SetAuthKey.sh'
 
   # Install latest guest additions
-  config.vbguest.auto_update = true
+  config.vbguest.auto_update = false
 end

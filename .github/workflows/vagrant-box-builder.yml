@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-13 # as 13 is the latest intel arch
+    runs-on: macos-12 # as 13 is the latest intel arch
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +40,7 @@ jobs:
           curl -LO https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.ova
           tar xzf noble-server-cloudimg-amd64.ova -C tmp_ova
           mv tmp_ova/ubuntu-noble-24.04-cloudimg.ovf tmp_ova/box.ovf
-          mv metadata.json tmp_ova/metadata.json
+          cp metadata.json tmp_ova/metadata.json
           tar czf noble-server-cloudimg-amd64.ova -C tmp_ova .
           rm -rf tmp_ova
 
