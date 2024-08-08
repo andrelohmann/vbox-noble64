@@ -7,7 +7,7 @@ Vagrant.configure('2') do |config|
   # Install latest guest additions
   config.vbguest.auto_update = true
 
-  config.vm.cloud_init content_type: "text/cloud-config", path: "./user-data.yaml"
+  config.vm.cloud_init content_type: "text/cloud-config", path: "./user-data.yml"
 
   config.vm.provider 'virtualbox' do |v|
     v.customize [ 'modifyvm', :id, '--cpus', '2' ]
