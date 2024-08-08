@@ -26,10 +26,15 @@ jobs:
       - name: Upgrade Homebrew
         run: brew update && brew upgrade
 
+      #- name: Install Virtualbox and vagrant
+      #  run: |
+      #    brew install --cask virtualbox
+      #    brew install --cask vagrant
+      #    VBoxManage --version
+      #    vagrant --version
+
       - name: Install Virtualbox and vagrant
         run: |
-          brew install --cask virtualbox
-          brew install --cask vagrant
           VBoxManage --version
           vagrant --version
 
