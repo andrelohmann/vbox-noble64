@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'jammy64'
+  config.vm.box = 'noble64'
 
   # Install latest guest additions
   config.vbguest.auto_update = true
@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
     v.customize [ 'modifyvm', :id, '--vram', '22' ]
   end
 
-  config.vm.hostname = 'jammy'
+  config.vm.hostname = 'noble'
   config.vm.network 'private_network', type: 'dhcp'
 
   #config.vm.provision :shell, path:   'Config/SetAuthKey.sh'

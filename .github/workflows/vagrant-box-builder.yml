@@ -37,16 +37,16 @@ jobs:
         run: |
           ls -al
           mkdir tmp_ova
-          curl -LO https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.ova
-          tar xzf jammy-server-cloudimg-amd64.ova -C tmp_ova
-          mv tmp_ova/ubuntu-jammy-22.04-cloudimg.ovf tmp_ova/box.ovf
+          curl -LO https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.ova
+          tar xzf noble-server-cloudimg-amd64.ova -C tmp_ova
+          mv tmp_ova/ubuntu-noble-24.04-cloudimg.ovf tmp_ova/box.ovf
           mv metadata.json tmp_ova/metadata.json
-          tar czf jammy-server-cloudimg-amd64.ova -C tmp_ova .
+          tar czf noble-server-cloudimg-amd64.ova -C tmp_ova .
           rm -rf tmp_ova
 
       - name: Add the box to vagrant
         run: |
-          vagrant box add --name jammy64 ./jammy-server-cloudimg-amd64.ova
+          vagrant box add --name noble64 ./noble-server-cloudimg-amd64.ova
           vagrant box list
           vagrant plugin install vagrant-vbguest
 
