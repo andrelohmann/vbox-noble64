@@ -48,6 +48,11 @@ jobs:
         run: |
           vagrant box add --vagrant box add --name jammy64 ./jammy-server-cloudimg-amd64.ova
           vagrant box list
+          vagrant plugin install vagrant-vbguest
+
+      - name: Startup the instance
+        run: |
+          vagrant up
 
       # Run Bartender
       #- name: Run a multi-line script
