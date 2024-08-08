@@ -4,9 +4,6 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'noble64'
 
-  # Install latest guest additions
-  config.vbguest.auto_update = true
-
   config.vm.cloud_init content_type: "text/cloud-config", path: "./user-data.yml"
 
   config.vm.provider 'virtualbox' do |v|
@@ -20,4 +17,7 @@ Vagrant.configure('2') do |config|
   config.vm.network 'private_network', type: 'dhcp'
 
   #config.vm.provision :shell, path:   'Config/SetAuthKey.sh'
+
+  # Install latest guest additions
+  config.vbguest.auto_update = true
 end
