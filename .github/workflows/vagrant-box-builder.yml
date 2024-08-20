@@ -40,7 +40,7 @@ jobs:
         run: |
           vagrant box add --name noble64 ./noble-server-cloudimg-amd64.ova
           vagrant box list
-          sudo vagrant plugin install vagrant-vbguest
+          vagrant plugin install vagrant-vbguest
 
       - name: Startup the instance
         run: |
