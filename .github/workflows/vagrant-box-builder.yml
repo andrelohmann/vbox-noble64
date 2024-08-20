@@ -45,10 +45,14 @@ jobs:
       - name: Startup the instance
         run: |
           vagrant up
+          vagrant box list
+          vagrant box repackage noble64 virtualbox $(date '+%Y%m%d')
+          vagrant box list
           vagrant destroy -f
 
       - name: Remove noble64 box
         run: |
+          vagrant box list
           vagrant box remove noble64
 
       # Run Bartender
