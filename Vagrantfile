@@ -16,8 +16,13 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = 'noble'
   config.vm.network 'private_network', type: 'dhcp'
 
-  #config.vm.provision :shell, path:   'Config/SetAuthKey.sh'
-
   # Install latest guest additions
-  config.vbguest.auto_update = false
+  config.vbguest.auto_update = true
+
+  $script = <<-SCRIPT
+sudo apt update
+sudo apt upgrade -yqq
+SCRIPT
+
+  config.vm.provision "shell", inline: $script
 end
