@@ -16,33 +16,22 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-13 # as 13 is the latest intel arch
+    runs-on: self-hosted # as 13 is the latest intel arch
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Upgrade Homebrew
-        run: brew update && brew upgrade
-
-      - name: Install Virtualbox and vagrant
-        run: |
-          brew install --cask virtualbox
-          brew install --cask vagrant
-          VBoxManage --version
-          vagrant --version
-
       - name: Download and extract ubuntu server cloudimage
         run: |
           ls -al
-          mkdir tmp_ova
           curl -LO https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.ova
-          tar xzf noble-server-cloudimg-amd64.ova -C tmp_ova
-          mv tmp_ova/ubuntu-noble-24.04-cloudimg.ovf tmp_ova/box.ovf
-          cp metadata.json tmp_ova/metadata.json
-          tar czf noble-server-cloudimg-amd64.ova -C tmp_ova .
-          rm -rf tmp_ova
+          tar --extract -f noble-server-cloudimg-amd64.ova ubuntu-noble-24.04-cloudimg.ovf
+          tar --delete -f noble-server-cloudimg-amd64.ova ubuntu-noble-24.04-cloudimg.ovf
+          mv ubuntu-noble-24.04-cloudimg.ovf box.ovf
+          tar --append -f noble-server-cloudimg-amd64.ova box.ovf
+          rm box.ovf
 
       - name: Add the box to vagrant
         run: |
