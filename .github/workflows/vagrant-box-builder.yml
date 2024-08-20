@@ -45,6 +45,7 @@ jobs:
       - name: Startup the instance
         run: |
           vagrant up
+          vagrant destroy -f
 
       - name: Remove noble64 box
         run: |
