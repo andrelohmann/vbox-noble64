@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# fetch VBox Version Number
+vbox_release_version = `VBoxManage --version`
+vbox_version = /[0-9]+\.[0-9]+\.[0-9]+/.match(vbox_release_version)
+
 Vagrant.configure('2') do |config|
   config.vm.box = 'noble64'
 
@@ -16,12 +20,17 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = 'noble'
   config.vm.network 'private_network', type: 'dhcp'
 
-  # Install latest guest additions
-  config.vbguest.auto_update = true
-
   $script = <<-SCRIPT
 sudo apt update
 sudo apt upgrade -yqq
+sudo apt-get install linux-headers-$(uname -r) build-essential dkms -yqq
+wget http://download.virtualbox.org/virtualbox/#{vbox_version}/VBoxGuestAdditions_#{vbox_version}.iso
+sudo mkdir /media/VBoxGuestAdditions
+sudo mount -o loop,ro VBoxGuestAdditions_#{vbox_version}.iso /media/VBoxGuestAdditions
+sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
+rm VBoxGuestAdditions_#{vbox_version}.iso
+sudo umount /media/VBoxGuestAdditions
+sudo rmdir /media/VBoxGuestAdditions
 SCRIPT
 
   config.vm.provision "shell", inline: $script
