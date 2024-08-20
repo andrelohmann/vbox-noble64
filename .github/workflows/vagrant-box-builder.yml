@@ -23,6 +23,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Remove noble64 box
+        run: |
+          vagrant box remove noble64
+
       - name: Download and extract ubuntu server cloudimage
         run: |
           ls -al
@@ -42,6 +46,10 @@ jobs:
       - name: Startup the instance
         run: |
           vagrant up
+
+      - name: Remove noble64 box
+        run: |
+          vagrant box remove noble64
 
       # Run Bartender
       #- name: Run a multi-line script
