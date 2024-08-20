@@ -45,6 +45,9 @@ jobs:
       - name: Startup the instance
         run: |
           vagrant up
+
+      - name: List and repackage
+        run: |
           vagrant box list
           vagrant box repackage noble64 virtualbox $(date '+%Y%m%d')
           vagrant box list
