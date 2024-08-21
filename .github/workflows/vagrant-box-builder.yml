@@ -57,10 +57,24 @@ jobs:
 
       - name: List and repackage
         run: |
-          vagrant box list
-          vagrant box repackage noble64 virtualbox $(date '+%Y%m%d')
-          vagrant box list
+          vagrant package --output noble64.box
           vagrant destroy -f
+
+      - name: Upload new Box Version
+        run: |
+          DATUM=$(date '+%Y%m%d')
+          hcp auth login --client-id=${{ secrets.HCP_CLIENT_ID }} --client-secret=${{ secrets.HCP_CLIENT_SECRET }}
+          export VAGRANT_CLOUD_TOKEN=";$(hcp auth print-access-token)"
+          response=$(curl \
+          --request GET \
+          --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+          https://app.vagrantup.com/api/v2/box/cloudcourse/noble64/version/$DATUM.0.0/provider/virtualbox/amd64/upload)
+          # Requires the jq command
+          upload_path=$(echo "$response" | jq .upload_path)
+          curl \
+          --request PUT \
+          --upload-file noble64.box \
+          "${upload_path}"
 
       - name: Remove noble64 box
         run: |

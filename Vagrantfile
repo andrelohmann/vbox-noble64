@@ -24,13 +24,14 @@ Vagrant.configure('2') do |config|
 sudo apt update
 sudo apt upgrade -yqq
 sudo apt-get install linux-headers-$(uname -r) build-essential dkms -yqq
-#wget http://download.virtualbox.org/virtualbox/#{vbox_version}/VBoxGuestAdditions_#{vbox_version}.iso
-#sudo mkdir /media/VBoxGuestAdditions
-#sudo mount -o loop,ro VBoxGuestAdditions_#{vbox_version}.iso /media/VBoxGuestAdditions
-#sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
-#rm VBoxGuestAdditions_#{vbox_version}.iso
-#sudo umount /media/VBoxGuestAdditions
-#sudo rmdir /media/VBoxGuestAdditions
+wget http://download.virtualbox.org/virtualbox/#{vbox_version}/VBoxGuestAdditions_#{vbox_version}.iso
+sudo mkdir /media/VBoxGuestAdditions
+sudo mount -o loop,ro VBoxGuestAdditions_#{vbox_version}.iso /media/VBoxGuestAdditions
+sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
+sudo umount /media/VBoxGuestAdditions
+sudo rmdir /media/VBoxGuestAdditions
+rm VBoxGuestAdditions_#{vbox_version}.iso
+modinfo vboxguest
 SCRIPT
 
   config.vm.provision "shell", inline: $script
