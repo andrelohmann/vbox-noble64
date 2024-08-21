@@ -30,7 +30,7 @@ jobs:
 
       - name: Cleanup vagrant boxes
         run: |
-          vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
+          vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f || echo "No boxes"
 
       - name: Download and extract ubuntu server cloudimage
         run: |
