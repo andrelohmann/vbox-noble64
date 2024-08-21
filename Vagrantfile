@@ -32,6 +32,8 @@ sudo umount /media/VBoxGuestAdditions
 sudo rmdir /media/VBoxGuestAdditions
 rm VBoxGuestAdditions_#{vbox_version}.iso
 modinfo vboxguest
+apt clean
+apt autoremove -y
 SCRIPT
 
   config.vm.provision "shell", inline: $script

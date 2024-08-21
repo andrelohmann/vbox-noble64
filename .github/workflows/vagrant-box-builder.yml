@@ -62,7 +62,7 @@ jobs:
 
       - name: Upload new Box Version
         run: |
-          DATUM=$(date '+%Y%m%d')
+          export DATUM=$(date '+%Y%m%d')
           hcp auth login --client-id=${{ secrets.HCP_CLIENT_ID }} --client-secret=${{ secrets.HCP_CLIENT_SECRET }}
           export VAGRANT_CLOUD_TOKEN=";$(hcp auth print-access-token)"
           response=$(curl \
