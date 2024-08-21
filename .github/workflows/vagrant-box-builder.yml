@@ -23,6 +23,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Upgrade Runner
+        run: |
+          sudo apt update
+          sudo apt upgrade -yqq
+
+      - name: Cleanup vagrant boxes
+        run: |
+          vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
+
       - name: Download and extract ubuntu server cloudimage
         run: |
           ls -al
