@@ -32,20 +32,19 @@ jobs:
         run: |
           vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f || echo "No boxes"
 
-      - name: Test the login
-        run: |
-          export DATUM=$(date '+%Y%m%d')
-          echo $DATUM
-          echo "hcp login"
-          hcp auth login --client-id=${{ secrets.HCP_CLIENT_ID }} --client-secret=${{ secrets.HCP_CLIENT_SECRET }}
-          #export VAGRANT_CLOUD_TOKEN=";$(hcp auth print-access-token)"
-          export VAGRANT_CLOUD_TOKEN="$(hcp auth print-access-token)"
-          echo $VAGRANT_CLOUD_TOKEN
-          echo "vagrant cloud login"
-          vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN
-          echo "vagrant cloud publish"
-          vagrant cloud publish cloudcourse/noble64 $DATUM.0.0 virtualbox noble64.box
-
+      #- name: Test the login
+      #  run: |
+      #    export DATUM=$(date '+%Y%m%d')
+      #    echo $DATUM
+      #    echo "hcp login"
+      #    hcp auth login --client-id=${{ secrets.HCP_CLIENT_ID }} --client-secret=${{ secrets.HCP_CLIENT_SECRET }}
+      #    #export VAGRANT_CLOUD_TOKEN=";$(hcp auth print-access-token)"
+      #    export VAGRANT_CLOUD_TOKEN="$(hcp auth print-access-token)"
+      #    echo $VAGRANT_CLOUD_TOKEN
+      #    echo "vagrant cloud login"
+      #    vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN
+      #    echo "vagrant cloud publish"
+      #    vagrant cloud publish cloudcourse/noble64 $DATUM.0.0 virtualbox noble64.box
 
       - name: Download and extract ubuntu server cloudimage
         run: |
@@ -74,6 +73,32 @@ jobs:
         run: |
           vagrant package --output noble64.box
           vagrant destroy -f
+
+      - name: version
+        run: echo $(date '+%Y%m%d')
+        id: version
+  
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: upload box artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./noble64.box
+          asset_name: noble64.box
+          asset_content_type: application/gzip
 
       - name: Upload new Box Version
         run: |
