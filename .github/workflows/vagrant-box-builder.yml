@@ -65,16 +65,18 @@ jobs:
           export DATUM=$(date '+%Y%m%d')
           hcp auth login --client-id=${{ secrets.HCP_CLIENT_ID }} --client-secret=${{ secrets.HCP_CLIENT_SECRET }}
           export VAGRANT_CLOUD_TOKEN=";$(hcp auth print-access-token)"
-          response=$(curl \
-          --request GET \
-          --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-          https://app.vagrantup.com/api/v2/box/cloudcourse/noble64/version/$DATUM.0.0/provider/virtualbox/amd64/upload)
+          vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN
+          vagrant cloud publish cloudcourse/noble64 $DATUM.0.0 virtualbox noble64.box
+          #response=$(curl \
+          #--request GET \
+          #--header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+          #https://app.vagrantup.com/api/v2/box/cloudcourse/noble64/version/$DATUM.0.0/provider/virtualbox/amd64/upload)
           # Requires the jq command
-          upload_path=$(echo "$response" | jq .upload_path)
-          curl \
-          --request PUT \
-          --upload-file noble64.box \
-          "${upload_path}"
+          #upload_path=$(echo "$response" | jq .upload_path)
+          #curl \
+          #--request PUT \
+          #--upload-file noble64.box \
+          #"${upload_path}"
 
       - name: Remove noble64 box
         run: |
