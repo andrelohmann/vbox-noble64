@@ -75,7 +75,7 @@ jobs:
           vagrant destroy -f
 
       - name: version
-        run: echo $(date '+%Y%m%d')
+        run: date '+%Y%m%d'
         id: version
 
       - name: release
